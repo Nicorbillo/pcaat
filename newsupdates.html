@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,minimum-scale=1">
+		<title>RSS News Feed</title>
+		<link href="styler.css" rel="stylesheet" type="text/css">
+	</head>
+	<body>
+	    <header class="header">
+            <h1 class="title">RSS News Feed</h1>
+        </header>
+		<main class="items">
+			<?php foreach ($items as $item): ?>
+            <a href="<?=$item->getElementsByTagName('link')->item(0)->textContent?>" class="item">
+                <?php if ($item->getElementsByTagName('enclosure')->length): ?>
+                <img src="<?=$item->getElementsByTagName('enclosure')->item(0)->getAttribute('url')?>" alt="<?=$item->getElementsByTagName('title')->item(0)->textContent?>" class="image">
+                <?php endif; ?>
+                <div class="details">
+                    <span class="date" title="<?=$item->getElementsByTagName('pubDate')->item(0)->textContent?>"><?=time_elapsed_string($item->getElementsByTagName('pubDate')->item(0)->textContent)?></span>
+                    <h2 class="title"><?=$item->getElementsByTagName('title')->item(0)->textContent?></h2>
+                    <p class="description"><?=$item->getElementsByTagName('description')->item(0)->textContent?></p>
+                </div>
+            </a>
+            <?php endforeach; ?>
+        </main>
+	</body>
+</html>
